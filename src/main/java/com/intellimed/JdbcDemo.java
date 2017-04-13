@@ -15,9 +15,17 @@ public class JdbcDemo {
 		
 		
 		JdbcDaoImpl jdbcDaoImpl = context.getBean("jdbcDaoImpl", JdbcDaoImpl.class);
-		Circle circle = jdbcDaoImpl.getCircle(1);
+		//Circle circle = jdbcDaoImpl.getCircle(1);
+		//System.out.println(circle.getName());
 		
-		System.out.println(circle.getName());
+		//Replacing the regular JDBC calls with JdbcTemplate
+		System.out.println(jdbcDaoImpl.getCircleCount());
+		System.out.println(jdbcDaoImpl.getCircleName(1));
+		
+		System.out.println(jdbcDaoImpl.getCircleforId(1).getName());
+		System.out.println(jdbcDaoImpl.getAllCircles().size());
+
+
 	}
 
 }
