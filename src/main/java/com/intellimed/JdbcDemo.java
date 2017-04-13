@@ -23,7 +23,13 @@ public class JdbcDemo {
 		System.out.println(jdbcDaoImpl.getCircleName(1));
 		
 		System.out.println(jdbcDaoImpl.getCircleforId(1).getName());
+		
+		//jdbcDaoImpl.createTriangleTable();
+
+		//jdbcDaoImpl.insertCircle(new Circle(2, "Second Circle"));
+		//jdbcDaoImpl.insertCircle(new Circle(3, "Third Circle"));
 		System.out.println(jdbcDaoImpl.getAllCircles().size());
+		
 
 
 	}

@@ -43,56 +43,56 @@ public class JdbcDaoImpl {
 		//this.dataSource = dataSource;
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
-
-	@Deprecated
-	public Circle getCircle(int circleId) {
-
-		
-		Connection conn = null;
-
-		try {
-			
-			//Replacing the below traditional connection setup code with Spring dataSource from spring.xml!
-/*			String driver = "org.postgresql.Driver";
-			Class.forName(driver).newInstance();
-			
-			// DriverManager.registerDriver(new org.postgresql.Driver());
-			String dbURL = "jdbc:postgresql://localhost/postgres";
-			String user = "postgres";
-			String pass = "1974";
-			conn = DriverManager.getConnection(dbURL, user, pass);*/
-			
-			conn = dataSource.getConnection();
-			
-			
-
-			
-			
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM circle where id = ?");
-			ps.setInt(1, circleId);
-
-			Circle circle = null;
-			
-			
-			ResultSet rs = ps.executeQuery();
-
-			if (rs.next()) {
-				circle = new Circle(circleId, rs.getString("name"));
-			}
-			rs.close();
-
-			ps.close();
-			return circle;
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		} finally {
-			try {
-				conn.close();
-			} catch (SQLException e) {
-			}
-		}
-
-	}
+//
+//	@Deprecated
+//	public Circle getCircle(int circleId) {
+//
+//		
+//		Connection conn = null;
+//
+//		try {
+//			
+//			//Replacing the below traditional connection setup code with Spring dataSource from spring.xml!
+///*			String driver = "org.postgresql.Driver";
+//			Class.forName(driver).newInstance();
+//			
+//			// DriverManager.registerDriver(new org.postgresql.Driver());
+//			String dbURL = "jdbc:postgresql://localhost/postgres";
+//			String user = "postgres";
+//			String pass = "1974";
+//			conn = DriverManager.getConnection(dbURL, user, pass);*/
+//			
+//			conn = dataSource.getConnection();
+//			
+//			
+//
+//			
+//			
+//			PreparedStatement ps = conn.prepareStatement("SELECT * FROM circle where id = ?");
+//			ps.setInt(1, circleId);
+//
+//			Circle circle = null;
+//			
+//			
+//			ResultSet rs = ps.executeQuery();
+//
+//			if (rs.next()) {
+//				circle = new Circle(circleId, rs.getString("name"));
+//			}
+//			rs.close();
+//
+//			ps.close();
+//			return circle;
+//		} catch (Exception e) {
+//			throw new RuntimeException(e);
+//		} finally {
+//			try {
+//				conn.close();
+//			} catch (SQLException e) {
+//			}
+//		}
+//
+//	}
 	
 	
 	public String getCircleCount(){
@@ -117,6 +117,20 @@ public class JdbcDaoImpl {
 		String sql = "SELECT * FROM CIRCLE";
 		return jdbcTemplate.query(sql, new CircleMapper());
 	}
+	
+	public void insertCircle(Circle circle){
+		String sql = "INSERT INTO CIRCLE(ID, NAME) VALUES (?, ?)";
+		
+		jdbcTemplate.update(sql, new Object[] {circle.getId(), circle.getName()});
+	}
+	
+	public void createTriangleTable(){
+		String sql = "CREATE TABLE TRIANGLE (ID INTEGER, NAME CHARACTER VARYING(50))";
+	
+		jdbcTemplate.execute(sql);
+	}
+	
+	
 	
 	private static final class CircleMapper implements RowMapper<Circle>{
 
