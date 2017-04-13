@@ -12,6 +12,10 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Component;
 
 import com.intellimed.model.Circle;
@@ -21,7 +25,8 @@ public class JdbcDaoImpl {
 	private DataSource dataSource;
 	
 	private JdbcTemplate jdbcTemplate;
-	
+	private NamedParameterJdbcTemplate namedParameterJdbcTemplate; // Allows named parameters in the sql instead of just the "?" in JdbcTemplate
+	private SimpleJdbcCall simpleJdbcTemplate; // A relatively recent one that allows both "?" and named parameters (instead of using above 2 which is not a good idea)
 
 	public JdbcTemplate getJdbcTemplate() {
 		return jdbcTemplate;
@@ -42,6 +47,7 @@ public class JdbcDaoImpl {
 	public void setDataSource(DataSource dataSource) {
 		//this.dataSource = dataSource;
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
+		this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 	}
 //
 //	@Deprecated
@@ -118,10 +124,17 @@ public class JdbcDaoImpl {
 		return jdbcTemplate.query(sql, new CircleMapper());
 	}
 	
+//	public void insertCircle(Circle circle){
+//		String sql = "INSERT INTO CIRCLE(ID, NAME) VALUES (?, ?)";
+//		
+//		jdbcTemplate.update(sql, new Object[] {circle.getId(), circle.getName()});
+//	}
+	
 	public void insertCircle(Circle circle){
-		String sql = "INSERT INTO CIRCLE(ID, NAME) VALUES (?, ?)";
-		
-		jdbcTemplate.update(sql, new Object[] {circle.getId(), circle.getName()});
+	String sql = "INSERT INTO CIRCLE(ID, NAME) VALUES (:id, :name)";
+
+	SqlParameterSource namedParameters = new MapSqlParameterSource("id", circle.getId()).addValue("name", circle.getName());
+	namedParameterJdbcTemplate.update(sql, namedParameters);
 	}
 	
 	public void createTriangleTable(){
@@ -129,6 +142,7 @@ public class JdbcDaoImpl {
 	
 		jdbcTemplate.execute(sql);
 	}
+	
 	
 	
 	

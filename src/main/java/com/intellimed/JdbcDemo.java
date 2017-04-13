@@ -28,6 +28,8 @@ public class JdbcDemo {
 
 		//jdbcDaoImpl.insertCircle(new Circle(2, "Second Circle"));
 		//jdbcDaoImpl.insertCircle(new Circle(3, "Third Circle"));
+		
+		jdbcDaoImpl.insertCircle(new Circle(4, "Fourth Circle"));
 		System.out.println(jdbcDaoImpl.getAllCircles().size());
 		
 
