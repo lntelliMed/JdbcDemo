@@ -4,6 +4,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.intellimed.dao.JdbcDaoImpl;
+import com.intellimed.dao.JdbcDaoSupportImpl;
 import com.intellimed.model.Circle;
 
 public class JdbcDemo {
@@ -13,7 +14,7 @@ public class JdbcDemo {
 		
 		ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
 		
-		
+/*		
 		JdbcDaoImpl jdbcDaoImpl = context.getBean("jdbcDaoImpl", JdbcDaoImpl.class);
 		//Circle circle = jdbcDaoImpl.getCircle(1);
 		//System.out.println(circle.getName());
@@ -29,10 +30,14 @@ public class JdbcDemo {
 		//jdbcDaoImpl.insertCircle(new Circle(2, "Second Circle"));
 		//jdbcDaoImpl.insertCircle(new Circle(3, "Third Circle"));
 		
-		jdbcDaoImpl.insertCircle(new Circle(4, "Fourth Circle"));
-		System.out.println(jdbcDaoImpl.getAllCircles().size());
-		
+		//jdbcDaoImpl.insertCircle(new Circle(4, "Fourth Circle"));
+		//System.out.println(jdbcDaoImpl.getAllCircles().size());
+*/	
 
+		
+				
+		JdbcDaoSupportImpl jdbcDaoSupportImpl = context.getBean("jdbcDaoSupportImpl", JdbcDaoSupportImpl.class);
+		System.out.println(jdbcDaoSupportImpl.getCircleCount());
 
 	}
 

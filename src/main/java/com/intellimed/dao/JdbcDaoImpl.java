@@ -15,7 +15,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
-import org.springframework.jdbc.core.simple.SimpleJdbcCall;
+//import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import com.intellimed.model.Circle;
@@ -26,7 +26,7 @@ public class JdbcDaoImpl {
 	
 	private JdbcTemplate jdbcTemplate;
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate; // Allows named parameters in the sql instead of just the "?" in JdbcTemplate
-	private SimpleJdbcCall simpleJdbcTemplate; // A relatively recent one that allows both "?" and named parameters (instead of using above 2 which is not a good idea)
+	//private SimpleJdbcTemplate simpleJdbcTemplate; //  A deprecated one that allowed both "?" and named parameters (instead of using above 2 which is not a good idea)
 
 	public JdbcTemplate getJdbcTemplate() {
 		return jdbcTemplate;
