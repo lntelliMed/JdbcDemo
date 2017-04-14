@@ -3,6 +3,7 @@ package com.intellimed;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.intellimed.dao.HibernateDaoImpl;
 import com.intellimed.dao.JdbcDaoImpl;
 import com.intellimed.dao.JdbcDaoSupportImpl;
 import com.intellimed.model.Circle;
@@ -35,10 +36,16 @@ public class JdbcDemo {
 */	
 
 		
-				
+
+		/*			
 		JdbcDaoSupportImpl jdbcDaoSupportImpl = context.getBean("jdbcDaoSupportImpl", JdbcDaoSupportImpl.class);
 		System.out.println(jdbcDaoSupportImpl.getCircleCount());
-
+*/
+		
+		
+		// Use Hibernate instead now!
+		HibernateDaoImpl hibernateDaoImpl = context.getBean("hibernateDaoImpl", HibernateDaoImpl.class);
+		System.out.println(hibernateDaoImpl.getCircleCount());
 	}
 
 }
